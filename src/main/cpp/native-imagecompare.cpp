@@ -32,7 +32,7 @@ JNIEXPORT int JNICALL Java_com_hf_imagecompare_ImageCompare_nativeAutoMerge(JNIE
 
 extern "C"
 JNIEXPORT jint JNICALL Java_com_hf_imagecompare_ImageCompare_nativeMatWidth(JNIEnv *env, jobject /* this */, jlong pointer) {
-    if (pointer == NULL) {
+    if (pointer == 0) {
         return 0;
     }
 
@@ -41,7 +41,7 @@ JNIEXPORT jint JNICALL Java_com_hf_imagecompare_ImageCompare_nativeMatWidth(JNIE
 
 extern "C"
 JNIEXPORT jint JNICALL Java_com_hf_imagecompare_ImageCompare_nativeMatHeight(JNIEnv *env, jobject /* this */, jlong pointer) {
-    if (pointer == NULL) {
+    if (pointer == 0) {
         return 0;
     }
 
@@ -80,7 +80,7 @@ JNIEXPORT void JNICALL Java_com_hf_imagecompare_ImageCompare_nativeMatRelease(JN
 
 extern "C"
 JNIEXPORT jlong JNICALL Java_com_hf_imagecompare_ImageCompare_nativeMatFromFile(JNIEnv *env, jobject /* this */, jstring path) {
-    const char* szPath = env->GetStringUTFChars(path, false);
+    const char* szPath = env->GetStringUTFChars(path, NULL);
     Mat mat = cv::imread(szPath);
     env->ReleaseStringUTFChars(path, szPath);
 
@@ -94,7 +94,7 @@ JNIEXPORT void JNICALL Java_com_hf_imagecompare_ImageCompare_nativeMatToFile(JNI
         return;
     }
 
-    const char* szPath = env->GetStringUTFChars(path, false);
+    const char* szPath = env->GetStringUTFChars(path, NULL);
     cv::imwrite(szPath, *CMAT(pointer));
     env->ReleaseStringUTFChars(path, szPath);
 }
